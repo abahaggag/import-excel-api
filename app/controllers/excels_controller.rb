@@ -8,15 +8,8 @@ class ExcelsController < ApplicationController
   end
   
   api 'POST', 'excel/import', 'Import excel data'
-  #param :file, ActionDispatch::Http::UploadedFile, desc: "Excel file", required: true
+  
   def import
-    #tempfile = Tempfile.new("fileupload")
-    #tempfile.binmode
-    #tempfile.write(Base64.decode64(params[:file]))
-    #uploaded_file = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => "excelfile.xlsx", :original_filename => "excelfile.xlsx")
-    #logger.debug Base64.decode64(params[:file])
-    #@data = Excel.import(params[:file])
-    #@data = Excel.import(uploaded_file)
     
     filename = "uploaded-file"
     in_content_type, encoding, string = params[:file].split(/[:;,]/)[1..3]
@@ -26,7 +19,6 @@ class ExcelsController < ApplicationController
     @tempfile = Tempfile.new([filename, extension])
     @tempfile.binmode
     
-    #@tempfile.write File.open(Base64.decode64(string)).read
     @tempfile.write Base64.decode64(string)
     @tempfile.rewind
     
